@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Typing Animation with Image Change and Audio</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: pink;
+            transition: all 10s;
+        }
+
+        .container {
+            overflow: auto;
+            max-width: 550px;
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 10s;
+        }
+
+        img {
+            display: block;
+            width: 500px;
+            height: 500px;
+            margin-bottom: 30px;
+            transition: all 10s;
+        }
+
+        button {
+            font-size: 15px;
+            display: block;
+            margin: 10px auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            width: 80px;
+            background-color: pink;
+            border: none;
+            border-radius: 10px;
+            transition: all 10s;
+        }
+
+        #message {
+            display: none; /* Initially hide the message */
+            font-size: 30px;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="1.jpeg" id="image">
+        <button id="enterBtn" onclick="handleClick()">ENTER</button>
+        <p id="message">Hellooo pagaling kapoo ily.</p>
+    </div>
+
+    <audio id="audio" src="bby.mp3" preload="auto"></audio>
+
+    <script>
+        function handleClick() {
+            var button = document.getElementById('enterBtn');
+            var message = document.getElementById('message');
+            var audio = document.getElementById('audio');
+
+            button.style.display = 'none'; // Hide the button
+            message.style.display = 'block'; // Show the message
+
+            // Play the audio
+            audio.play();
+
+            // Typing animation
+            var messageText = message.innerHTML;
+            message.innerHTML = ''; // Clear the original text
+            var index = 0;
+
+            function typeEffect() {
+                if (index < messageText.length) {
+                    message.innerHTML += messageText.charAt(index);
+                    index++;
+                    setTimeout(typeEffect, 200); // Adjust the typing speed here (milliseconds)
+                } else {
+                    // Change image after typing animation finishes
+                    var img = document.getElementById('image');
+                    img.src = '2.jpeg'; // Change to the new image source
+                }
+            }
+
+            typeEffect();
+
+            setTimeout(function() {
+                document.body.style.backgroundColor = 'black';
+                document.querySelector('.container').style.opacity = '0';
+                document.querySelector('img').style.opacity = '0';
+                document.querySelector('#message').style.opacity = '0';
+            }, 40000); // Change after 40 seconds
+        }
+    </script>
+
+</body>
+
+</html>
